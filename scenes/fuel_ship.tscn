@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0s0djjlxlkqf"]
+
+[ext_resource type="Texture2D" uid="uid://bai546owwmy8g" path="res://sprites/fuel_ship.png" id="1_d350v"]
+[ext_resource type="Script" path="res://scripts/fuel_ship.gd" id="1_hnp5t"]
+
+[node name="FuelShip" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+wall_min_slide_angle = 0.0
+floor_stop_on_slope = false
+floor_block_on_wall = false
+script = ExtResource("1_hnp5t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.777332
+texture = ExtResource("1_d350v")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-150, 200, 150, 200, 110, -110, 0, -350, -110, -110)

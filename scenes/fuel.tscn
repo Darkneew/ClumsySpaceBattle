@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0gxv0yxd70jw"]
+
+[ext_resource type="Script" path="res://scripts/fuel.gd" id="1_a44e5"]
+[ext_resource type="Texture2D" uid="uid://dvfe87dw2usc2" path="res://sprites/fuel.png" id="1_psty6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oqgwe"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jdrt3"]
+radius = 64.0
+
+[node name="Fuel" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_oqgwe")
+gravity_scale = 0.0
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_a44e5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("1_psty6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CircleShape2D_jdrt3")

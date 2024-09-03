@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds7xy6ta18rte"]
+
+[sub_resource type="Gradient" id="Gradient_pdxgp"]
+offsets = PackedFloat32Array(0.446429, 0.714286, 0.869048, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.384809, 0.384809, 0.384809, 1, 0.607143, 0.607143, 0.607143, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nuhoc"]
+gradient = SubResource("Gradient_pdxgp")
+
+[node name="Corner" type="StaticBody2D"]
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+rotation = -1.5708
+scale = Vector2(0.3, 150)
+texture = SubResource("GradientTexture1D_nuhoc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-70.71, -70.71, 0, 0, 70.71, -70.71)
+one_way_collision = true

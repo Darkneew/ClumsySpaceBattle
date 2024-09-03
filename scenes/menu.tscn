@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvjim2nr0ff8s"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_maoa2"]
+[ext_resource type="Theme" uid="uid://c062h3biqndyh" path="res://GUI/menu_theme.tres" id="1_qdsrs"]
+[ext_resource type="Texture2D" uid="uid://ctj8dg5lpcxuy" path="res://GUI/background.jpg" id="1_vxqi0"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_maoa2")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.400698, 0.400698, 0.400698, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vxqi0")
+expand_mode = 2
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -99.0
+offset_right = 57.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_qdsrs")
+text = "START"
+
+[node name="Minus" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -71.0
+offset_right = -64.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qdsrs")
+text = "-"
+
+[node name="Plus" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 75.0
+offset_top = -70.0
+offset_right = 140.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qdsrs")
+text = "+"
+
+[node name="NumberPlayers" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -63.0
+offset_right = 76.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qdsrs")
+text = "2
+"
+scroll_active = false
+
+[connection signal="pressed" from="StartButton" to="." method="on_start"]
+[connection signal="pressed" from="Minus" to="." method="pm_players" binds= [-1]]
+[connection signal="pressed" from="Plus" to="." method="pm_players" binds= [1]]

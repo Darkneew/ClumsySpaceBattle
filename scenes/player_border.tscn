@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bek7gvahiexkp"]
+
+[ext_resource type="Script" path="res://scripts/player_border.gd" id="1_3piqi"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_hvatd"]
+a = Vector2(-700, 0)
+b = Vector2(700, 0)
+
+[node name="PlayerBorder" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_3piqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7, 0)
+shape = SubResource("SegmentShape2D_hvatd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("SegmentShape2D_hvatd")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_exit"]
