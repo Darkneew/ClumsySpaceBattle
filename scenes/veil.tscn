@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt64gv50kvbja"]
+
+[ext_resource type="Script" path="res://scripts/veil.gd" id="1_xp7be"]
+
+[sub_resource type="Gradient" id="Gradient_nwfdn"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_100so"]
+gradient = SubResource("Gradient_nwfdn")
+
+[node name="Veil" type="CanvasLayer"]
+script = ExtResource("1_xp7be")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Rect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_100so")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

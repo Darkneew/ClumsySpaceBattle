@@ -1,4 +1,31 @@
-[gd_resource type="Theme" format=3 uid="uid://c062h3biqndyh"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://c062h3biqndyh"]
+
+[ext_resource type="FontFile" uid="uid://dekhubwpmpd23" path="res://GUI/font.otf" id="1_kk1ha"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ad7vk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t8sbj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owa2h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3r8of"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t1256"]
 
 [resource]
-default_font_size = 100
+default_font = ExtResource("1_kk1ha")
+default_font_size = 95
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(0.568973, 0.568973, 0.568973, 1)
+Button/colors/font_hover_pressed_color = Color(0.568627, 0.568627, 0.568627, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(0.568627, 0.568627, 0.568627, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_ad7vk")
+Button/styles/focus = SubResource("StyleBoxEmpty_t8sbj")
+Button/styles/hover = SubResource("StyleBoxEmpty_owa2h")
+Button/styles/normal = SubResource("StyleBoxEmpty_3r8of")
+Button/styles/pressed = SubResource("StyleBoxEmpty_t1256")
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 40

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt3iwxswmgx6w"]
+
+[ext_resource type="Texture2D" uid="uid://cpd354k7bg2b3" path="res://sprites/bigasteroid.png" id="1_4bnjf"]
+
+[node name="BigAsteroid" type="StaticBody2D"]
+collision_layer = 5
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(284, -399, 376, -303, 437, -208, 491, -81, 510, 20, 477, 153, 319, 325, 108, 435, 44, 459, -124, 449, -310, 309, -479, 75, -478, -2, -507, -46, -489, -205, -455, -231, -439, -268, -375, -343, -110, -444, 8, -453, 201, -423)
+
+[node name="BigAsteroid" type="Sprite2D" parent="."]
+texture = ExtResource("1_4bnjf")

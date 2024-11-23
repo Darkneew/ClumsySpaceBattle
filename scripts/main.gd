@@ -2,40 +2,86 @@ extends Node2D
 
 const GAME_SCENE = preload("res://scenes/space_battle.tscn")
 const FUEL_SCENE = preload("res://scenes/fuel_battle.tscn")
-const SCORE_SCENE = preload("res://scenes/fuel_score.tscn")
+const TEXT_SCENE = preload("res://scenes/text_scene.tscn")
 
-var main_menu: Node
+@onready var main_menu: Node = get_node("Menu")
+@onready var current_child: Node = get_node("Menu")
 var game: Node
 
-func on_start_game(nb_players):
-	main_menu = get_node("Menu")
-	remove_child.bind(main_menu).call_deferred()
-	game = GAME_SCENE.instantiate()
-	game.nb_players = nb_players
-	add_child(game)
-	game.fuel_battle_start.connect(on_fuel_battle_start)
+# UTILITY
 
-func on_fuel_battle_start(nb_players):
-	remove_child.bind(game).call_deferred()
-	var fuel_scene = FUEL_SCENE.instantiate()
-	fuel_scene.player_number = nb_players
-	add_child(fuel_scene)
-	fuel_scene.end_game.connect(on_fuel_battle_end)	
+func switch_new_scene(SCENE, parametrize: Callable) -> Node:
+	var y = SCENE.instantiate()
+	switch_scene(y)
+	parametrize.call(y)
+	return y
+
+func switch_scene(scene: Node):
+	current_child.get_node("Veil").veil()
+	await get_tree().create_timer(0.3).timeout
+	var x = current_child
+	remove_child.call_deferred(x)
+	add_child(scene)
+	scene.get_node("Veil").unveil()
+	current_child = scene
+
+func transition(time:float, text, callback: Callable):
+	switch_new_scene(TEXT_SCENE, ptext.bind(text))
+	get_tree().create_timer(time).timeout.connect(callback)
+
+# PARAMETERS
+
+func ptext(scene, text):
+	scene.set_text(text)
+
+func pgame(scene, nb_players):
+	scene.nb_players = nb_players
+	scene.fuel_battle_start.connect(on_fuel_battle_start)
+	scene.death.connect(on_death)
+	scene.win.connect(on_win)
+
+func pfuel(scene, playersAlive):
+	scene.playersAlive = playersAlive
+	scene.end_game.connect(on_fuel_battle_end)	
+
+# EVENTS
+
+func on_death(player: int):
+	transition(3, "Player %1.f is eliminated" % player, on_death1)
 	
-func on_fuel_battle_end(scene, score, nbp):
-	remove_child.bind(scene).call_deferred()
-	var transcene = SCORE_SCENE.instantiate()
-	var text = "P1: %3.f\nP2: %3.f" % [score[0], score[1]]
-	if nbp > 2:
-		text += "\nP3: %3.f" % score[2]
-	if nbp > 3:
-		text += "\nP4: %3.f" % score[3]
-	transcene.get_node("Scoreboard").text = text
-	add_child(transcene)
-	get_tree().create_timer(4).timeout.connect(on_fuel_transition_end.bind(transcene, score))
+func on_death1():
+	switch_scene(game)
+	game.next_step()
 
-func on_fuel_transition_end(scene, score):
-	remove_child.bind(scene).call_deferred()
-	add_child(game)
+func on_win(player):
+	transition(5, "Player %1.f is the winner !" % player, on_win1)
+	
+func on_win1():
+	switch_scene(main_menu)
+
+func on_start_game(nb_players):
+	transition(1.6, "GAME\nSTART!", on_start_game1.bind(nb_players))
+	
+func on_start_game1(nb_players):
+	game = switch_new_scene(GAME_SCENE, pgame.bind(nb_players))
+	
+func on_fuel_battle_start(playersAlive):
+	transition(1.6, "Time to\nfuel up!", on_fuel_battle_start1.bind(playersAlive))
+
+func on_fuel_battle_start1(playersAlive):
+	switch_new_scene(FUEL_SCENE, pfuel.bind(playersAlive))
+	
+func on_fuel_battle_end(score, playersAlive):
+	var text = null
+	for i in range(4):
+		if playersAlive[i]:
+			if text == null:
+				text = "Player %1.f: %3.f" % [i+1,score[i]]
+			else:
+				text += "\nPlayer %1.f: %3.f" % [i+1,score[i]]
+	transition(4, text, on_fuel_battle_end1.bind(score))
+
+func on_fuel_battle_end1(score):
+	switch_scene(game)
 	game.end_fuel_battle(score)
-	pass
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://clqn35mc3ufy1"]
+[gd_scene load_steps=8 format=3 uid="uid://clqn35mc3ufy1"]
 
 [ext_resource type="Texture2D" uid="uid://ctj8dg5lpcxuy" path="res://GUI/background.jpg" id="1_11wea"]
 [ext_resource type="Script" path="res://scripts/fuel_battle.gd" id="1_ncax8"]
@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://ds7xy6ta18rte" path="res://scenes/corner.tscn" id="2_qe4wh"]
 [ext_resource type="PackedScene" uid="uid://b0s0djjlxlkqf" path="res://scenes/fuel_ship.tscn" id="3_stfvl"]
 [ext_resource type="PackedScene" uid="uid://bek7gvahiexkp" path="res://scenes/player_border.tscn" id="4_8pjra"]
+[ext_resource type="PackedScene" uid="uid://dt64gv50kvbja" path="res://scenes/veil.tscn" id="7_jejkl"]
 
 [node name="FuelBattle" type="Node2D"]
 script = ExtResource("1_ncax8")
-player_number = 2
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(0.400698, 0.400698, 0.400698, 1)
@@ -105,9 +105,11 @@ player = 4
 position = Vector2(576, 325)
 
 [node name="FuelSpawner" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="Veil" parent="." instance=ExtResource("7_jejkl")]
 
 [connection signal="point" from="Map/PlayerBorder1" to="." method="on_point" binds= [1]]
 [connection signal="point" from="Map/PlayerBorder2" to="." method="on_point" binds= [2]]

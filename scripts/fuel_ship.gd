@@ -27,6 +27,5 @@ func _process(delta: float) -> void:
 		velocity *= 1 - FREIN * delta
 		if velocity.length_squared() < MIN_SPEED_SQUARED:
 			velocity = Vector2.ZERO
-		velocity 
 	move_and_slide()
 	pass
